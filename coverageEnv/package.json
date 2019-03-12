@@ -1,0 +1,18 @@
+{
+  "name": "etherlime-project",
+  "version": "1.0.0",
+  "description": "This is the default package.json generated for your project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "coverage": "MODE=coverage etherlime coverage2; istanbul report html && open coverage/index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "etherlime": "^1.0.1",
+    "openzeppelin-solidity": "^2.1.2",
+    "@0x/sol-coverage": "^3.0.0",
+    "@0x/sol-trace": "^2.0.8"
+  }
+}
