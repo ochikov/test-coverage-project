@@ -32,29 +32,29 @@ describe('Example', () => {
         await assert.revert(limeFactoryInstance.createLime("newLime2", carbohydrates, 8, 2), "Carbohydrates are not set to 0");
     });
 
-    // it('should create lime from another account', async () => {
-    //     let bobsWallet = accounts[4].wallet;
-    //     const transaction = await limeFactoryInstance.from(bobsWallet /* Could be address or just index in accounts like 4 */).createLime("newLime3", 6, 8, 2);
-    //     // check sender
-    //     assert.equal(transaction.from, bobsWallet.address, "The account that created lime was not bobs");
+    it('should create lime from another account', async () => {
+        let bobsWallet = accounts[4].signer;
+        const transaction = await limeFactoryInstance.from(bobsWallet /* Could be address or just index in accounts like 4 */).createLime("newLime3", 6, 8, 2);
+        // check sender
+        assert.equal(transaction.from, bobsWallet.address, "The account that created lime was not bobs");
 
-    //     //check created lime
-    //     let lime = await limeFactoryInstance.limes(1);
-    //     assert.equal(lime.name, 'newLime', '"newLime3" was not created');
-    // })
+        //check created lime
+        let lime = await limeFactoryInstance.limes(1);
+        assert.equal(lime.name, 'newLime3', '"newLime3" was not created');
+    })
 
-    it('should emit event on lime created', async () => {
-        let expectedEvent = 'FreshLime';
-        const createTransaction = await limeFactoryInstance.contract.createLime("newLime4", 5, 8, 2);
-        const transactionReceipt = await limeFactoryInstance.verboseWaitForTransaction(createTransaction);
-        // check for event
-        let isEmitted = utils.hasEvent(transactionReceipt, limeFactoryInstance.contract, expectedEvent);
-        assert(isEmitted, 'Event FreshLime was not emitted');
+    // it('should emit event on lime created', async () => {
+    //     let expectedEvent = 'FreshLime';
+    //     const createTransaction = await limeFactoryInstance.contract.createLime("newLime4", 5, 8, 2);
+    //     const transactionReceipt = await limeFactoryInstance.verboseWaitForTransaction(createTransaction);
+    //     // check for event
+    //     let isEmitted = utils.hasEvent(transactionReceipt, limeFactoryInstance.contract, expectedEvent);
+    //     assert(isEmitted, 'Event FreshLime was not emitted');
 
-        // parse logs
-        let logs = utils.parseLogs(transactionReceipt, limeFactoryInstance.contract, expectedEvent);
-        assert.equal(logs[0].name, "newLime4", '"newLime4" was not created');
-    });
+    //     // parse logs
+    //     let logs = utils.parseLogs(transactionReceipt, limeFactoryInstance.contract, expectedEvent);
+    //     assert.equal(logs[0].name, "newLime4", '"newLime4" was not created');
+    // });
 
     after("write coverage/profiler output", async () => {
         console.log("foo");
